@@ -16,6 +16,11 @@
                     Lire la suite
                 </a>
             </p>
+            <p>
+                <a href="{{ route('blog.edit', ['post' => $post->slug]) }}" class="btn btn-secondary">
+                    Editer l'article
+                </a>
+            </p>
         </article>
     @endforeach
 
