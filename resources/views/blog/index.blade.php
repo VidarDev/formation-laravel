@@ -4,14 +4,18 @@
 
 @section('content')
     <h1 class="h1 text-center mt-2 mb-3">Mon Blog</h1>
-    <div class="mx-auto justify-content-center row my-5">
+    <div class="mx-auto justify-content-center row row-gap-3 my-5">
         @foreach ($posts as $post)
             <article class="col-12 col-sm-6 col-lg-4">
-                <div class="card">
+                <div class="card h-100">
+                    @if ($post->category)
+                        <span class="position-absolute badge bg-info mx-2 my-2 z-1">Catégorie : {{ $post->category->name }}</span>
+                    @endif
                     <img src="https://picsum.photos/400/300.webp/?blur=2" class="card-img-top ratio ratio-4x3" alt="...">
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
+
                         <h2 class="card-title h5">{{ $post->title }}</h2>
-                        <p class="card-text">
+                        <p class="card-text h-100">
                             {{ $post->content }}
                         </p>
                         <div class="mb-0 d-flex justify-content-between">
