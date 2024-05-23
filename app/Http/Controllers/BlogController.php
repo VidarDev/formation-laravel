@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BlogFilterRequest;
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
-use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class BlogController extends Controller
@@ -15,7 +12,7 @@ class BlogController extends Controller
     public function index(): View
     {
         return view('blog.index', [
-            'posts' => Post::paginate(2)
+            'posts' => Post::paginate(3)
         ]);
     }
 
