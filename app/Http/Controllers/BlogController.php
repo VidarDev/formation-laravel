@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
+use App\Models\Author;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -25,7 +26,7 @@ class BlogController extends Controller
         //     return to_route('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
         // }
         return view('blog.show', [
-            'post' => $post
+            'post' => $post,
         ]);
     }
 
@@ -35,7 +36,8 @@ class BlogController extends Controller
         return view('blog.create', [
             'post' => $post,
             'categories' => Category::select('id', 'name')->get(),
-            'tags' => Tag::select('id', 'name')->get()
+            'tags' => Tag::select('id', 'name')->get(),
+            'authors' => Author::select('id', 'lastname', 'firstname')->get(),
         ]);
     }
     // pour le moment cette méthode ne renvoi qu'une vue
@@ -53,7 +55,8 @@ class BlogController extends Controller
         return view('blog.edit', [
             'post' => $post,
             'categories' => Category::select('id', 'name')->get(),
-            'tags' => Tag::select('id', 'name')->get()
+            'tags' => Tag::select('id', 'name')->get(),
+            'authors' => Author::select('id', 'lastname', 'firstname')->get(),
         ]);
     }
 

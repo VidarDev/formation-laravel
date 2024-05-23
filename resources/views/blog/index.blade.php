@@ -12,7 +12,7 @@
             <article class="col-12 col-sm-6 col-lg-4">
                 <div class="card h-100">
                     @if ($post->category)
-                        <span class="position-absolute badge bg-info mx-2 my-2 z-1">Catégorie : {{ $post->category->name }}</span>
+                        <span class="position-absolute badge bg-info mx-2 my-2 z-1 top-0 start-0">Catégorie : {{ $post->category->name }}</span>
                     @endif
                     <img src="https://picsum.photos/400/300.webp/?blur=2" class="card-img-top ratio ratio-4x3" alt="...">
                     <div class="card-body d-flex flex-column">
@@ -26,6 +26,9 @@
                         <h2 class="card-title h5">{{ $post->title }}</h2>
                         <p class="card-text h-100">
                             {{ $post->content }}
+                            @if ($post->author)
+                                <span class="badge bg-light text-dark my-2 z-1">par {{ $post->author->firstname }} <span class="text-uppercase">{{ $post->author->lastname }}</span></span>
+                            @endif
                         </p>
                         <div class="mb-0 d-flex justify-content-between">
                             <a href="{{ route('blog.show', ['post' => $post->slug]) }}" class="btn btn-primary">

@@ -29,6 +29,7 @@ class CreatePostRequest extends FormRequest
             'content' => ['required'],
             'category_id' => ['required', 'exists:categories,id'],
             'tags' => ['array', 'exists:tags,id', 'required'],
+            'author_id' => ['required', 'exists:authors,id'],
         ];
     }
 

@@ -11,6 +11,14 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'slug',
+        'content',
+        'category_id',
+        'author_id'
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
@@ -21,11 +29,10 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'content'
-    ];
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(Author::class);
+    }
 
     protected $guarded = [];
 }
