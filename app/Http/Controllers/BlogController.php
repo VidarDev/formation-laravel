@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -12,7 +14,7 @@ class BlogController extends Controller
     public function index(): View
     {
         return view('blog.index', [
-            'posts' => Post::paginate(3)
+            'posts' => Post::orderBy('id', 'desc')->paginate(3)
         ]);
     }
 
@@ -31,7 +33,9 @@ class BlogController extends Controller
     {
         $post = new Post();
         return view('blog.create', [
-            'post' => $post
+            'post' => $post,
+            'categories' => Category::select('id', 'name')->get(),
+            'tags' => Tag::select('id', 'name')->get()
         ]);
     }
     // pour le moment cette méthode ne renvoi qu'une vue
@@ -39,6 +43,7 @@ class BlogController extends Controller
     public function store(CreatePostRequest $request)
     {
         $post = Post::create($request->validated());
+        $post->tags()->sync($request->validated('tags'));
 
         return redirect()->route('blog.show', ['post' => $post->slug])->with('success', "L'article a bien été sauvegardé");
     }
@@ -46,13 +51,16 @@ class BlogController extends Controller
     public function edit(Post $post)
     {
         return view('blog.edit', [
-            'post' => $post
+            'post' => $post,
+            'categories' => Category::select('id', 'name')->get(),
+            'tags' => Tag::select('id', 'name')->get()
         ]);
     }
 
     public function update(Post $post, CreatePostRequest $request)
     {
         $post->update($request->validated());
+        $post->tags()->sync($request->validated('tags'));
 
         return redirect()->route('blog.show', ['post' => $post->slug])->with('success', "L'article a bien été modifié");
     }
